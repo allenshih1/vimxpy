@@ -26,9 +26,56 @@ def basic_settings():
             final_settings += 'set no' + opt[0] + '\n'
 
     return final_settings
+
+def numeric_settings():
+    opt_file = open('numeric')
+    opts = []
+    for line in opt_file:
+        linesplit = str.strip(line).split(' ', 2)
+        opts.append(linesplit)
+    while True:
+        numeric = ['dialog', '--menu', 'Numeric', '0', '0', '0']
+
+            
+        for opt in opts:
+            numeric += [opt[0]+'='+opt[1], opt[2]]
+
+        numeric += ['quit', 'leave the program and save']
+
+        process = subprocess.Popen(numeric, stderr=subprocess.PIPE)
+        result = process.communicate()[1].decode()
+        if(process.returncode != 0):
+            return
+
+        if(result == 'quit'):
+            break
+        
+        default = '0'
+        for opt in opts:
+            if(opt[0]+'='+opt[1] == result):
+                default = opt[1]
+
+        inputbox = ['dialog', '--inputbox', result, '0', '0', default]
+        
+        process = subprocess.Popen(inputbox, stderr=subprocess.PIPE)
+        sub_result = process.communicate()[1].decode()
+        if(process.returncode != 0):
+            return
+
+
+        for opt in opts:
+            if(opt[0]+'='+opt[1] == result):
+                opt[1] = sub_result
+
+    final_settings = ''
+    for opt in opts:
+            final_settings += 'set ' + opt[0] + '=' + opt[1] + '\n'
+
+    return final_settings
     
 def menu():
     basic = ''
+    numeric = ''
     while True:
         menu = ['dialog', '--menu', 'VIMX', '0', '0', '0']
         menu_file = open('menu')
@@ -43,7 +90,6 @@ def menu():
         menu += ['quit', 'leave the program and save']
             
         process = subprocess.Popen(menu, stderr=subprocess.PIPE)
-        print(process.returncode)
         result = process.communicate()[1].decode()
         if(process.returncode != 0):
             exit
@@ -51,8 +97,11 @@ def menu():
         if(result == 'basic'):
             basic = basic_settings() 
 
+        elif(result == 'numeric'):
+            numeric = numeric_settings() 
+
         elif(result == 'quit'):
-            return basic;
+            return basic + numeric;
 
 all = menu()
 vimrc = open(expanduser("~")+'/.vimrc', 'w')
