@@ -1,4 +1,10 @@
 [
-    ["shiftwidth", "8"],
-    ["tabstop", "8"]
+    {
+		"option": "shiftwidth",
+		"default": "8"
+	},
+    {
+		"option": "tabstop",
+		"default": "8"
+	}
 ]

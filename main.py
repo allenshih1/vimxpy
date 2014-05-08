@@ -4,24 +4,30 @@ import locale, dialog
 from dialog import Dialog
 import json
 
-# This is almost always a good thing to do at the beginning of your programs.
 locale.setlocale(locale.LC_ALL, '')
-
 d = Dialog(dialog="dialog")
-# Dialog.set_background_title() requires pythondialog 2.13 or later
 d.set_background_title("VIMX")
-# For older versions, you can use:
-#   d.add_persistent_args(["--backtitle", "My little program"])
 
-# In pythondialog 3.x, you can compare the return code to d.OK, Dialog.OK or
-# "ok" (same object). In pythondialog 2.x, you have to use d.DIALOG_OK, which
-# is deprecated since version 3.0.0.
+def parser(opt, typ):
+    r = []
+    if typ == 'onoff':
+        for a in opt:
+            r.append([a['option'], a['description'], a['default']])
+    if typ == 'numeric':
+        for a in opt:
+            r.append([a['option'], a['default']])
+    return r
+    
+
 menu_file = open('menu.json')
 menu_option = json.load(menu_file)
 onoff_file = open('onoff.json')
 onoff_option = json.load(onoff_file)
+onoff_option = parser(onoff_option, 'onoff')
 numeric_file = open('numeric.json')
 numeric_option = json.load(numeric_file)
+numeric_option = parser(numeric_option, 'numeric')
+
 while True:
     code, tag = d.menu("VIMX",
                        choices=menu_option)

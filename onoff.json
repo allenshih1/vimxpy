@@ -1,11 +1,47 @@
 [
-	["ignorecase", "Ignore case in search patterns", true],
-	["showcmd", "show (partial) command in the last line of the screen", true],
-	["number", "line number", true],
-	["hlsearch", "high light search", true],
-	["expandtab", "expandtab ", true],
-	["ruler", "ruler", true],
-	["autoindent", "copy indent from current line when starting a new line", true],
-	["incsearch", "incremental searching", true],
-	["compatible", "vi-compatible", false]
+	{
+		"option": "ignorecase",
+		"description": "Ignore case in search patterns",
+		"default": true
+	},
+	{
+		"option": "showcmd",
+		"description": "show (partial) command in the last line of the screen",
+		"default": true
+	},
+	{
+		"option": "number",
+		"description": "line number",
+		"default": true
+	},
+	{
+		"option": "hlsearch",
+		"description": "high light search",
+		"default": true
+	},
+	{
+		"option": "expandtab",
+		"description": "expandtab ",
+		"default": true
+	},
+	{
+		"option": "ruler",
+		"description": "ruler",
+		"default": true
+	},
+	{
+		"option": "autoindent",
+		"description": "copy indent from current line when starting a new line",
+		"default": true
+	},
+	{
+		"option": "incsearch",
+		"description": "incremental searching",
+		"default": true
+	},
+	{
+		"option": "compatible",
+		"description": "vi-compatible",
+		"default": false
+	}
 ]
