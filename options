@@ -1,9 +1,0 @@
-ignorecase on Ignore case in search patternsIgnore case in search patterns
-showcmd on show (partial) command in the last line of the screen
-number on line number
-hlsearch on high light search
-expandtab on expandtab 
-ruler on ruler
-autoindent on copy indent from current line when starting a new line
-incsearch on incremental searching
-compatible off vi-compatible

@@ -1,0 +1,11 @@
+[
+	["ignorecase", "Ignore case in search patterns", true],
+	["showcmd", "show (partial) command in the last line of the screen", true],
+	["number", "line number", true],
+	["hlsearch", "high light search", true],
+	["expandtab", "expandtab ", true],
+	["ruler", "ruler", true],
+	["autoindent", "copy indent from current line when starting a new line", true],
+	["incsearch", "incremental searching", true],
+	["compatible", "vi-compatible", false]
+]
