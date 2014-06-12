@@ -18,29 +18,29 @@ def settingFilter(fVimrc):
 # Input: vimrc file
 # Output: setting dict
 # --------------------------------------------
-def vimrcPaser (fVimrc):
+def vimrcPaser (fVimrc, myfilter):
   configs = settingFilter(fVimrc)
-  set_Formats = []
+  filtered = []
   for config in configs:
     # set format
-    if ( len(config) == 2 and config[0] == 'set'):
+    if ( len(config) == 2 and config[0] == myfilter and myfilter == 'set'):
       if ( '=' in config[1]):                                             # with value
         value_assgin_format = config[1].split('=')
         bufDict = { "value":value_assgin_format[0], \
                     "type": "withContent", \
                     "content":value_assgin_format[1]}
-        set_Formats.append(bufDict)
+        filtered.append(bufDict)
       else:                                                               # without value
         bufDict = { "value":config[1], \
                     "type": "onoff", \
                     "content":None}
-        set_Formats.append(bufDict)
-  return set_Formats
+        filtered.append(bufDict)
+  return filtered
 
 
 # Example
 #vimrcPath = os.path.expanduser("~/.vimrc2")
 #fVimrc = open( vimrcPath, "r")
-#set_Formats = vimrcPaser(fVimrc)
+#set_Formats = vimrcPaser(fVimrc, 'set')
 #for set_Format in set_Formats:
   #print (set_Format)
