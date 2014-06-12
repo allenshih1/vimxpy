@@ -13,13 +13,16 @@ def settingFilter(fVimrc):
       configs.append(config)
   return configs
 
+# if string is keymap keyword
+def isMap(string):
+  return re.search('^[nvxosilc]?(nore)?map(c|clear)?$|^[nvxoilc]?m$|^[nvxl]?n|^no(!)?$|^[oic]?n$|^sonr^|^map(c|clear)?!$', string)
+
+# if keymap attribute
 def isAttr(string):
   attr = ['<buffer>', '<silent>', '<expr>',  '<script>', '<unique>', '<special>']
   return string in attr
 
-def isMap(string):
-  return re.search('^[nvxosilc]?(nore)?map(c|clear)?$|^[nvxoilc]?m$|^[nvxl]?n|^no(!)?$|^[oic]?n$|^sonr^|^map(c|clear)?!$', string)
-
+# concate all element in list from start to end with space
 def concatFrom(inList, start):
   string = ''
   for index in range(start, len(inList)):
@@ -31,8 +34,8 @@ def concatFrom(inList, start):
 
 # --------------------------------------------
 # Vimrc_paser
-# Usage: setting = vimrcPaser(file)
-# Input: vimrc file
+# Usage: something = vimrcPaser(file, option)
+# Input: vimrc file, option
 # Output: setting dict
 # --------------------------------------------
 def vimrcPaser (fVimrc, myfilter):
@@ -52,21 +55,22 @@ def vimrcPaser (fVimrc, myfilter):
                     "type"    : "onoff",   \
                     "content" : None}
         filtered.append(bufDict)
+    # keymap format
     elif (myfilter == 'map' and isMap(config[0]) ):
-      if (len(config) == 3):
+      if (len(config) == 3):                                              # map {key} {cmd}
         bufDict = { "type"      : config[0], \
                     "attr"     : None,      \
                     "key"      : config[1], \
                     "command"  : concatFrom(config, 2)
                   }
-      elif (len(config) >= 3):
+      elif (len(config) >= 3):                                            # map <attr> {key} {cmd}
         if (isAttr( config[1]) ):
           bufDict = { "type"      : config[0], \
                       "attr"     : config[1], \
                       "key"      : config[2], \
                       "command"  : concatFrom(config, 3)
                     }
-        else:
+        else:                                                             # map {key} {cmd}
           bufDict = { "type"      : config[0], \
                       "attr"     : None,      \
                       "key"      : config[1], \
