@@ -2,67 +2,67 @@
 	{
 		"option": "ignorecase",
 		"description": "Ignore case in search patterns",
-		"default": true
+		"default": true,
 		"category": "search"
 	},
 	{
 		"option": "showcmd",
 		"description": "show (partial) command in the last line of the screen",
-		"default": true
+		"default": true,
 		"category": "appearence"
 	},
 	{
 		"option": "number",
 		"description": "line number",
-		"default": true
+		"default": true,
 		"category": "appearence"
 	},
 	{
 		"option": "hlsearch",
 		"description": "high light search",
-		"default": true
+		"default": true,
 		"category": "search"
 	},
 	{
 		"option": "expandtab",
 		"description": "expandtab ",
-		"default": true
+		"default": true,
 		"category": "tab"
 	},
 	{
 		"option": "ruler",
 		"description": "ruler",
-		"default": true
+		"default": true,
 		"category": "appearence"
 	},
 	{
 		"option": "autoindent",
 		"description": "copy indent from current line when starting a new line",
-		"default": true
+		"default": true,
 		"category": "tab"
 	},
 	{
 		"option": "incsearch",
 		"description": "incremental searching",
-		"default": true
+		"default": true,
 		"category": "search"
 	},
 	{
 		"option": "compatible",
 		"description": "vi-compatible",
-		"default": false
+		"default": false,
 		"category": "general"
 	},
 	{
 		"option": "shiftwidth",
 		"description": "Number of spaces to use for each step of (auto)indent",
-		"default": "8"
+		"default": "8",
 		"category": "tab"
 	},
 	{
 		"option": "tabstop",
 		"description": "Number of spaces that a <Tab> in the file counts for",
-		"default": "8"
+		"default": "8",
 		"category": "tab"
 	}
 ]

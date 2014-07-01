@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import npyscreen
+import json
 
 class MainForm(npyscreen.Form):
     def create(self):
@@ -13,7 +14,13 @@ class MainForm(npyscreen.Form):
 
 class VimXApp(npyscreen.NPSAppManaged):
     def onStart(self):
+        self.readOpt()
         self.registerForm('MAIN', MainForm())
+
+    def readOpt(self):
+        self.f = open("options.json", "r")
+        self.opt = json.load(self.f)
+
 
 if __name__ == '__main__':
     V = VimXApp()

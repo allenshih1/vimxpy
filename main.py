@@ -17,7 +17,7 @@ def parser(opt, typ):
         for a in opt:
             r.append([a['option'], a['default']])
     return r
-    
+
 
 menu_file = open('menu.json')
 menu_option = json.load(menu_file)
@@ -35,7 +35,7 @@ while True:
         break
 
     if tag == "onoff":
-    
+
         # We could put non-empty items here (not only the tag for each entry)
         code, tags = d.checklist("Basic On Off Settings",
                                  choices=onoff_option,
