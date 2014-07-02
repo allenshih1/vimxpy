@@ -1,0 +1,232 @@
+{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "nocompatible",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": "2",
+    "default": null,
+    "description": null,
+    "option": "backspace",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "100",
+    "default": null,
+    "description": null,
+    "option": "undolevels",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "number",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "nobomb",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "nostartofline",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": "unnamed",
+    "default": null,
+    "description": null,
+    "option": "clipboard+",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "5",
+    "default": null,
+    "description": null,
+    "option": "scrolloff",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "longest,list",
+    "default": null,
+    "description": null,
+    "option": "wildmode",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "",
+    "default": null,
+    "description": null,
+    "option": "key",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "128",
+    "default": null,
+    "description": null,
+    "option": "synmaxcol",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "",
+    "default": null,
+    "description": null,
+    "option": "viminfo",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "ttyfast",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "hlsearch",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "incsearch",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": "256",
+    "default": null,
+    "description": null,
+    "option": "t_Co",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "nobackup",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "noswapfile",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "smarttab",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": "2",
+    "default": null,
+    "description": null,
+    "option": "softtabstop",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "2",
+    "default": null,
+    "description": null,
+    "option": "shiftwidth",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "2",
+    "default": null,
+    "description": null,
+    "option": "tabstop",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "Ia",
+    "default": null,
+    "description": null,
+    "option": "shortmess",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "",
+    "default": null,
+    "description": null,
+    "option": "t_vb",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "500",
+    "default": null,
+    "description": null,
+    "option": "tm",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "utf-8",
+    "default": null,
+    "description": null,
+    "option": "encoding",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "ucs-bom,utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1,euc-jp,utf-16le,latin1",
+    "default": null,
+    "description": null,
+    "option": "fileencodings",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "*.o,*.obj,*.pyc",
+    "default": null,
+    "description": null,
+    "option": "wildignore+",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "*.DS_Store",
+    "default": null,
+    "description": null,
+    "option": "wildignore+",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "tmp/**",
+    "default": null,
+    "description": null,
+    "option": "wildignore+",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": null,
+    "default": null,
+    "description": null,
+    "option": "list!",
+    "type": "onoff"
+}{
+    "category": null,
+    "content": "vert:\\\u2502",
+    "default": null,
+    "description": null,
+    "option": "fillchars+",
+    "type": "withContent"
+}{
+    "category": null,
+    "content": "\u21aa",
+    "default": null,
+    "description": null,
+    "option": "showbreak",
+    "type": "withContent"
+}
