@@ -46,14 +46,20 @@ def vimrcPaser (fVimrc, myfilter):
     if ( myfilter == 'set' and len(config) == 2 and config[0] == 'set'):
       if ( '=' in config[1]):                                             # with value
         value_assgin_format = config[1].split('=')
-        bufDict = { "value"   : value_assgin_format[0], \
-                    "type"    : "withContent",          \
-                    "content" : value_assgin_format[1]}
+        bufDict = { "option"   : value_assgin_format[0], \
+                    "type"    : "withContent",           \
+                    "content" : value_assgin_format[1],  \
+                    "category" : None,                   \
+                    "default" : None,                    \
+                    "description" : None}
         filtered.append(bufDict)
       else:                                                               # without value
-        bufDict = { "value"   : config[1], \
-                    "type"    : "onoff",   \
-                    "content" : None}
+        bufDict = { "option"   : config[1], \
+                    "type"    : "onoff",    \
+                    "content" : None,       \
+                    "category" : None,      \
+                    "default" : None,       \
+                    "description" : None}
         filtered.append(bufDict)
     # keymap format
     elif (myfilter == 'map' and isMap(config[0]) ):
@@ -81,8 +87,8 @@ def vimrcPaser (fVimrc, myfilter):
 
 
 # Example
-#vimrcPath = os.path.expanduser("~/.vimrc2")
-#fVimrc = open( vimrcPath, "r")
-#set_Formats = vimrcPaser(fVimrc, 'map')
-#for set_Format in set_Formats:
-  #print (set_Format)
+vimrcPath = os.path.expanduser("~/.vimrc2")
+fVimrc = open( vimrcPath, "r")
+set_Formats = vimrcPaser(fVimrc, 'set')
+for set_Format in set_Formats:
+  print (set_Format)
