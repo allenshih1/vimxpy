@@ -2,6 +2,9 @@
 
 import npyscreen
 import json
+import os
+from paser.paser import vimrcPaser
+from paser.search import searchInVimrc
 
 class OptForm(npyscreen.Form):
     def create(self):
@@ -66,9 +69,16 @@ class VimXApp(npyscreen.NPSAppManaged):
         self.opts = json.load(self.f)
 
     def categorizeOpt(self):
+        vimrcPath = os.path.expanduser("~/.vimrc2")
+        fVimrc = open( vimrcPath, "r")
+        userOpts = vimrcPaser(fVimrc, 'set')
         self.displayDict = dict()
         for opt in self.opts:
-            opt["content"] = opt["default"]
+            result = searchInVimrc(opt["option"], userOpts, "option")
+            if result:
+                opt["content"] = result["content"]
+            else:
+                opt["content"] = opt["default"]
             cat = opt["category"]
             if cat in self.displayDict:
                 self.displayDict[cat].append(opt)

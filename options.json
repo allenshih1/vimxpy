@@ -17,7 +17,7 @@
 		"option": "number",
     "type": "onoff",
 		"description": "line number",
-		"default": true,
+		"default": false,
 		"category": "appearence"
 	},
 	{

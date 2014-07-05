@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 import os
 import json
 import re
@@ -87,10 +87,10 @@ def vimrcPaser (fVimrc, myfilter):
 
 
 # Example
-vimrcPath = os.path.expanduser("~/.vimrc2")
-fVimrc = open( vimrcPath, "r")
-set_Formats = vimrcPaser(fVimrc, 'set')
-with open('temp.json', 'w') as outfile:
-  for set_Format in set_Formats:
-    json.dump(set_Format, outfile, indent = 4, sort_keys = True)
-    print (set_Format)
+#vimrcPath = os.path.expanduser("~/.vimrc2")
+#fVimrc = open( vimrcPath, "r")
+#set_Formats = vimrcPaser(fVimrc, 'set')
+#with open('temp.json', 'w') as outfile:
+  #for set_Format in set_Formats:
+    #json.dump(set_Format, outfile, indent = 4, sort_keys = True)
+    #print (set_Format)
