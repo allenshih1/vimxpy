@@ -1,66 +1,77 @@
 [
 	{
 		"option": "ignorecase",
+    "type": "onoff",
 		"description": "Ignore case in search patterns",
 		"default": true,
 		"category": "search"
 	},
 	{
 		"option": "showcmd",
+    "type": "onoff",
 		"description": "show (partial) command in the last line of the screen",
 		"default": true,
 		"category": "appearence"
 	},
 	{
 		"option": "number",
+    "type": "onoff",
 		"description": "line number",
 		"default": true,
 		"category": "appearence"
 	},
 	{
 		"option": "hlsearch",
+    "type": "onoff",
 		"description": "high light search",
 		"default": true,
 		"category": "search"
 	},
 	{
 		"option": "expandtab",
+    "type": "onoff",
 		"description": "expandtab ",
 		"default": true,
 		"category": "tab"
 	},
 	{
 		"option": "ruler",
+    "type": "onoff",
 		"description": "ruler",
 		"default": true,
 		"category": "appearence"
 	},
 	{
 		"option": "autoindent",
+    "type": "onoff",
 		"description": "copy indent from current line when starting a new line",
 		"default": true,
 		"category": "tab"
 	},
 	{
 		"option": "incsearch",
+    "type": "onoff",
 		"description": "incremental searching",
 		"default": true,
 		"category": "search"
 	},
 	{
 		"option": "compatible",
+    "type": "onoff",
 		"description": "vi-compatible",
 		"default": false,
 		"category": "general"
 	},
 	{
 		"option": "shiftwidth",
+    "type": "numeric",
 		"description": "Number of spaces to use for each step of (auto)indent",
 		"default": "8",
 		"category": "tab"
 	},
 	{
 		"option": "tabstop",
+    "type": "numeric",
 		"description": "Number of spaces that a <Tab> in the file counts for",
 		"default": "8",
 		"category": "tab"
