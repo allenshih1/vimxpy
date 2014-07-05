@@ -9,27 +9,44 @@ class OptForm(npyscreen.Form):
         opts = self.parentApp.displayDict[cat]
         self.name = cat
 
-        onoff = []
+        self.onoff = []
         selected = []
-        numeric = []
+        self.numeric = []
+        self.numericResult = []
         i = 0
         for opt in opts:
             if opt["type"] == "onoff":
-                onoff.append(opt["option"])
+                self.onoff.append(opt["option"])
                 if(opt["content"] == True):
                     selected.append(i)
                 i += 1
             elif opt["type"] == "numeric":
-                self.add(npyscreen.TitleText, name = opt["option"], value = opt["content"])
+                self.numeric.append(opt["option"])
+                self.numericResult.append(self.add(npyscreen.TitleText, name = opt["option"], value = opt["content"]))
 
-        self.add(npyscreen.MultiSelect, value = selected, scroll_exit=True, values = onoff)
+        self.onoffResult = self.add(npyscreen.MultiSelect, value = selected, scroll_exit=True, values = self.onoff)
 
     def afterEditing(self):
+        opts = self.parentApp.opts
+        for i in range(len(self.onoff)):
+            if i in self.onoffResult.value:
+                tmp = True
+            else:
+                tmp = False
+            for opt in opts:
+                if(opt["option"] == self.onoff[i]):
+                    opt["content"] = tmp
+
+        for i in range(len(self.numeric)):
+            for opt in opts:
+                if(opt["option"] == self.numeric[i]):
+                    opt["content"] = self.numericResult[i].value
+
         self.parentApp.setNextForm('MAIN')
 
 class MenuForm(npyscreen.Form):
     def create(self):
-        self.add(MenuMultiLineAction, values = self.parentApp.displayDict.keys())
+        self.add(MenuMultiLineAction, values = self.parentApp.displayDict.keys(), scroll_exit=True)
 
 class MenuMultiLineAction(npyscreen.MultiLineAction):
     def actionHighlighted(self, act_on_this, key_press):
