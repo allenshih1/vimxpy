@@ -47,9 +47,15 @@ class OptForm(npyscreen.Form):
 
         self.parentApp.setNextForm('MAIN')
 
-class MenuForm(npyscreen.Form):
+class MenuForm(npyscreen.ActionForm):
     def create(self):
         self.add(MenuMultiLineAction, values = self.parentApp.displayDict.keys(), scroll_exit=True)
+
+    def on_ok(self):
+        self.parentApp.switchForm(None)
+
+    def on_ok(self):
+        self.parentApp.switchForm(None)
 
 class MenuMultiLineAction(npyscreen.MultiLineAction):
     def actionHighlighted(self, act_on_this, key_press):
