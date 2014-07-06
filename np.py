@@ -4,7 +4,6 @@ import npyscreen
 import json
 import os
 from paser.paser import vimrcPaser
-from paser.search import searchInVimrc
 
 class OptForm(npyscreen.ActionForm):
     def create(self):
@@ -65,12 +64,14 @@ class MenuMultiLineAction(npyscreen.MultiLineAction):
 
 class VimXApp(npyscreen.NPSAppManaged):
     def onStart(self):
+        # backup origin vimrc
         self.vimrcPath = os.path.expanduser("~/.vimrc2")
         self.bak_vimrcPath = os.path.expanduser("~/.bak_vimrc2")
         self.oriVimrc = open( self.vimrcPath, "r")
         wVimrc = open( self.bak_vimrcPath, "w")
         for line in self.oriVimrc:
             wVimrc.write(line)
+        # complete backup
         self.currentOpt = None
         self.readOpt()
         self.categorizeOpt()
@@ -99,7 +100,7 @@ class VimXApp(npyscreen.NPSAppManaged):
         self.displayDict = dict()
         for key in self.opts:
             opt = self.opts[key]
-            result = searchInVimrc(key, userOpts, "option")
+            result = userOpts.get(key)
             if result:
                 opt["content"] = result["content"]
             else:

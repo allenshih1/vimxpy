@@ -40,57 +40,55 @@ def concatFrom(inList, start):
 # --------------------------------------------
 def vimrcPaser (fVimrc, myfilter):
   configs = settingFilter(fVimrc)
-  filtered = []
+  returnDict = dict()
   for config in configs:
     # set format
     if ( myfilter == 'set' and len(config) == 2 and config[0] == 'set'):
       if ( '=' in config[1]):                                             # with value
         value_assgin_format = config[1].split('=')
-        bufDict = { "option"   : value_assgin_format[0], \
-                    "type"    : "withContent",           \
-                    "content" : value_assgin_format[1],  \
-                    "category" : None,                   \
-                    "default" : None,                    \
-                    "description" : None}
-        filtered.append(bufDict)
+        returnDict[value_assgin_format[0]]   =                        \
+                    { "type"               : "numeric",             \
+                      "content"            : value_assgin_format[1],\
+                      "category"           : None,                  \
+                      "default"            : None,                  \
+                      "description"        : None                   \
+                    }
       else:                                                               # without value
-        bufDict = { "option"   : config[1], \
-                    "type"    : "onoff",    \
-                    "content" : None,       \
-                    "category" : None,      \
-                    "default" : None,       \
-                    "description" : None}
-        filtered.append(bufDict)
+        returnDict[config[1]]         =           \
+                    { "type"        : "onoff",  \
+                      "content"     : True,     \
+                      "category"    : None,     \
+                      "default"     : None,     \
+                      "description" : None      \
+                    }
     # keymap format
     elif (myfilter == 'map' and isMap(config[0]) ):
       if (len(config) == 3):                                              # map {key} {cmd}
-        bufDict = { "type"      : config[0], \
-                    "attr"     : None,      \
-                    "key"      : config[1], \
-                    "command"  : concatFrom(config, 2)
-                  }
+        returnDict[config[1]] = { "type"      : config[0], \
+                                 "attr"     : None,      \
+                                 "key"      : config[1], \
+                                 "command"  : concatFrom(config, 2)
+                              }
       elif (len(config) >= 3):                                            # map <attr> {key} {cmd}
         if (isAttr( config[1]) ):
-          bufDict = { "type"      : config[0], \
-                      "attr"     : config[1], \
-                      "key"      : config[2], \
-                      "command"  : concatFrom(config, 3)
-                    }
+          returnDict[config[2]] = { "type"      : config[0], \
+                                   "attr"     : config[1], \
+                                   "key"      : config[2], \
+                                   "command"  : concatFrom(config, 3)
+                                }
         else:                                                             # map {key} {cmd}
-          bufDict = { "type"      : config[0], \
-                      "attr"     : None,      \
-                      "key"      : config[1], \
-                      "command"  : concatFrom(config, 2)
-                    }
-      filtered.append(bufDict)
-  return filtered
+          returnDict[config[1]] = { "type"      : config[0], \
+                                   "attr"     : None,      \
+                                   "key"      : config[1], \
+                                   "command"  : concatFrom(config, 2)
+                                }
+  return returnDict
 
 
 # Example
 #vimrcPath = os.path.expanduser("~/.vimrc2")
 #fVimrc = open( vimrcPath, "r")
 #set_Formats = vimrcPaser(fVimrc, 'set')
-#with open('temp.json', 'w') as outfile:
-  #for set_Format in set_Formats:
-    #json.dump(set_Format, outfile, indent = 4, sort_keys = True)
-    #print (set_Format)
+#for set_Format in set_Formats:
+  #print (set_Format)
+  #print set_Formats[set_Format]
