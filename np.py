@@ -83,7 +83,7 @@ class TitleTextWithHelp(npyscreen.TitleText):
 
 class MenuForm(npyscreen.ActionForm):
     def create(self):
-        self.add(MenuMultiLineAction, values = self.parentApp.displayDict.keys(), scroll_exit=True)
+        self.add(MenuMultiLineAction, values = sorted(self.parentApp.displayDict.keys()), scroll_exit=True)
 
     def on_ok(self):
         self.parentApp.writeOpt()
