@@ -88,6 +88,7 @@ class MenuForm(npyscreen.ActionForm):
     CANCEL_BUTTON_BR_OFFSET = (2, 24)
     def create(self):
         art = open("asciiart.txt", "r")
+        self.nextrely = 1
         for line in art:
             self.add(npyscreen.Textfield, editable = False, value = line)
         self.add(MenuMultiLineAction, values = sorted(self.parentApp.displayDict.keys()), scroll_exit=True)
