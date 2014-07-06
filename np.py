@@ -26,9 +26,9 @@ class OptForm(npyscreen.ActionForm):
                 i += 1
             elif opt["type"] == "numeric":
                 self.numeric.append(key)
-                self.numericResult.append(self.add(npyscreen.TitleText, name = key, value = opt["content"]))
+                self.numericResult.append(self.add(TitleTextWithHelp, name = key, value = opt["content"]))
 
-        self.onoffResult = self.add(npyscreen.MultiSelect, value = selected, scroll_exit=True, values = self.onoff)
+        self.onoffResult = self.add(MultiSelectWithHelp, value = selected, scroll_exit=True, values = self.onoff)
 
     def on_ok(self):
         opts = self.parentApp.opts
@@ -46,6 +46,24 @@ class OptForm(npyscreen.ActionForm):
 
     def on_cancel(self):
         self.parentApp.setNextForm('MAIN')
+
+class MultiSelectWithHelp(npyscreen.MultiSelect):
+    def set_up_handlers(self):
+        super(MultiSelectWithHelp, self).set_up_handlers()
+        self.handlers.update({'^L': self.h_act_on_help})
+
+    def h_act_on_help(self, ch):
+        highlighted = self.values[self.cursor_line]
+        npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]))
+
+class TitleTextWithHelp(npyscreen.TitleText):
+    def set_up_handlers(self):
+        super(TitleTextWithHelp, self).set_up_handlers()
+        self.handlers.update({'^L': self.h_act_on_help})
+
+    def h_act_on_help(self, ch):
+        highlighted = self.name
+        npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]))
 
 class MenuForm(npyscreen.ActionForm):
     def create(self):
