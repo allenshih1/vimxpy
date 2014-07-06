@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import npyscreen
+import curses
 import json
 import os
 import re
@@ -30,6 +31,21 @@ class OptForm(npyscreen.ActionForm):
 
         self.onoffResult = self.add(MultiSelectWithHelp, value = selected, scroll_exit=True, values = self.onoff)
 
+    def display_menu_advert_at(self):
+        return self.lines-1, 1
+
+    def draw_form(self):
+        super(OptForm, self).draw_form()
+        menu_advert = " ^L: Option Descriptions "
+        y, x = self.display_menu_advert_at()
+        if isinstance(menu_advert, bytes):
+            menu_advert = menu_advert.decode('utf-8', 'replace')
+        self.add_line(y, x,
+            menu_advert,
+            self.make_attributes_list(menu_advert, curses.A_NORMAL),
+            self.columns - x - 1
+            )
+
     def on_ok(self):
         opts = self.parentApp.opts
         for i in range(len(self.onoff)):
@@ -54,7 +70,7 @@ class MultiSelectWithHelp(npyscreen.MultiSelect):
 
     def h_act_on_help(self, ch):
         highlighted = self.values[self.cursor_line]
-        npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]))
+        npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]), title = "Help")
 
 class TitleTextWithHelp(npyscreen.TitleText):
     def set_up_handlers(self):
@@ -63,7 +79,7 @@ class TitleTextWithHelp(npyscreen.TitleText):
 
     def h_act_on_help(self, ch):
         highlighted = self.name
-        npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]))
+        npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]), title = "Help")
 
 class MenuForm(npyscreen.ActionForm):
     def create(self):
