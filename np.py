@@ -3,6 +3,7 @@
 import npyscreen
 import json
 import os
+import re
 from paser.paser import vimrcPaser
 
 class OptForm(npyscreen.ActionForm):
@@ -65,8 +66,8 @@ class MenuMultiLineAction(npyscreen.MultiLineAction):
 class VimXApp(npyscreen.NPSAppManaged):
     def onStart(self):
         # backup origin vimrc
-        self.vimrcPath = os.path.expanduser("~/.vimrc2")
-        self.bak_vimrcPath = os.path.expanduser("~/.bak_vimrc2")
+        self.vimrcPath = os.path.expanduser("~/.vimrc")
+        self.bak_vimrcPath = os.path.expanduser("~/.bak_vimrc")
         self.oriVimrc = open( self.vimrcPath, "r")
         wVimrc = open( self.bak_vimrcPath, "w")
         for line in self.oriVimrc:
@@ -83,16 +84,33 @@ class VimXApp(npyscreen.NPSAppManaged):
         self.opts = json.load(self.f)
 
     def writeOpt(self):
-        self.oriVimrc = open( self.vimrcPath, "r")
-        wVimrc = open( "temp.vimrc", "w")
+        self.oriVimrc = open( self.bak_vimrcPath, "r")
+        wVimrc = open( self.vimrcPath, "w")
         flag = 0
         for line in self.oriVimrc:
-            if flag == 0 and line == '\"\"\" vimx begin':
+            if flag == 0 and re.search('^\"\"\" vimx begin$', line):
                 flag = 1
-            elif flag == 1 and line == '\"\"\" vimx end':
+            elif flag == 1 and re.search('^\"\"\" vimx end$', line):
                 flag = 0
             elif flag == 0:
                 wVimrc.write(line)
+        wVimrc.write('\"\"\" vimx begin\n')
+        for opt in self.opts:
+            wVimrc.write('set ')
+            if self.opts[opt]['type'] == "onoff":
+                if self.opts[opt]['content'] == True:
+                    wVimrc.write(opt)
+                    wVimrc.write("\n")
+                elif self.opts[opt]['content'] == False:
+                    wVimrc.write("no")
+                    wVimrc.write(opt)
+                    wVimrc.write("\n")
+            elif self.opts[opt]['type'] == "numeric":
+                wVimrc.write(opt)
+                wVimrc.write("=")
+                wVimrc.write(self.opts[opt]['content'])
+                wVimrc.write("\n")
+        wVimrc.write('\"\"\" vimx end\n')
 
     def categorizeOpt(self):
         self.oriVimrc = open( self.vimrcPath, "r")
