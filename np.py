@@ -6,7 +6,7 @@ import os
 from paser.paser import vimrcPaser
 from paser.search import searchInVimrc
 
-class OptForm(npyscreen.Form):
+class OptForm(npyscreen.ActionForm):
     def create(self):
         cat = self.parentApp.currentOpt
         opts = self.parentApp.displayDict[cat]
@@ -29,7 +29,7 @@ class OptForm(npyscreen.Form):
 
         self.onoffResult = self.add(npyscreen.MultiSelect, value = selected, scroll_exit=True, values = self.onoff)
 
-    def afterEditing(self):
+    def on_ok(self):
         opts = self.parentApp.opts
         for i in range(len(self.onoff)):
             if i in self.onoffResult.value:
@@ -47,14 +47,18 @@ class OptForm(npyscreen.Form):
 
         self.parentApp.setNextForm('MAIN')
 
+    def on_cancel(self):
+        self.parentApp.setNextForm('MAIN')
+
 class MenuForm(npyscreen.ActionForm):
     def create(self):
         self.add(MenuMultiLineAction, values = self.parentApp.displayDict.keys(), scroll_exit=True)
 
     def on_ok(self):
+        self.parentApp.writeOpt()
         self.parentApp.switchForm(None)
 
-    def on_ok(self):
+    def on_cancel(self):
         self.parentApp.switchForm(None)
 
 class MenuMultiLineAction(npyscreen.MultiLineAction):
@@ -64,6 +68,12 @@ class MenuMultiLineAction(npyscreen.MultiLineAction):
 
 class VimXApp(npyscreen.NPSAppManaged):
     def onStart(self):
+        self.vimrcPath = os.path.expanduser("~/.vimrc2")
+        self.bak_vimrcPath = os.path.expanduser("~/.bak_vimrc2")
+        self.oriVimrc = open( self.vimrcPath, "r")
+        wVimrc = open( self.bak_vimrcPath, "w")
+        for line in self.oriVimrc:
+            wVimrc.write(line)
         self.currentOpt = None
         self.readOpt()
         self.categorizeOpt()
@@ -74,10 +84,21 @@ class VimXApp(npyscreen.NPSAppManaged):
         self.f = open("options.json", "r")
         self.opts = json.load(self.f)
 
+    def writeOpt(self):
+        self.oriVimrc = open( self.vimrcPath, "r")
+        wVimrc = open( "temp.vimrc", "w")
+        flag = 0
+        for line in self.oriVimrc:
+            if flag == 0 and line == '\"\"\" vimx begin':
+                flag = 1
+            elif flag == 1 and line == '\"\"\" vimx end':
+                flag = 0
+            elif flag == 0:
+                wVimrc.write(line)
+
     def categorizeOpt(self):
-        vimrcPath = os.path.expanduser("~/.vimrc2")
-        fVimrc = open( vimrcPath, "r")
-        userOpts = vimrcPaser(fVimrc, 'set')
+        self.oriVimrc = open( self.vimrcPath, "r")
+        userOpts = vimrcPaser(self.oriVimrc, 'set')
         self.displayDict = dict()
         for opt in self.opts:
             result = searchInVimrc(opt["option"], userOpts, "option")
