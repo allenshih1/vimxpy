@@ -82,7 +82,14 @@ class TitleTextWithHelp(npyscreen.TitleText):
         npyscreen.notify_confirm((self.parent.parentApp.opts[highlighted]["description"]), title = "Help")
 
 class MenuForm(npyscreen.ActionForm):
+    OK_BUTTON_TEXT = 'Save and quit'
+    OK_BUTTON_BR_OFFSET = (2, 7)
+    CANCEL_BUTTON_TEXT = 'Quit without saving'
+    CANCEL_BUTTON_BR_OFFSET = (2, 24)
     def create(self):
+        art = open("asciiart.txt", "r")
+        for line in art:
+            self.add(npyscreen.Textfield, editable = False, value = line)
         self.add(MenuMultiLineAction, values = sorted(self.parentApp.displayDict.keys()), scroll_exit=True)
 
     def on_ok(self):
