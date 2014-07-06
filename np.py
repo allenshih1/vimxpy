@@ -17,15 +17,16 @@ class OptForm(npyscreen.Form):
         self.numeric = []
         self.numericResult = []
         i = 0
-        for opt in opts:
+        for key in opts:
+            opt = opts[key]
             if opt["type"] == "onoff":
-                self.onoff.append(opt["option"])
+                self.onoff.append(key)
                 if(opt["content"] == True):
                     selected.append(i)
                 i += 1
             elif opt["type"] == "numeric":
-                self.numeric.append(opt["option"])
-                self.numericResult.append(self.add(npyscreen.TitleText, name = opt["option"], value = opt["content"]))
+                self.numeric.append(key)
+                self.numericResult.append(self.add(npyscreen.TitleText, name = key, value = opt["content"]))
 
         self.onoffResult = self.add(npyscreen.MultiSelect, value = selected, scroll_exit=True, values = self.onoff)
 
@@ -36,14 +37,10 @@ class OptForm(npyscreen.Form):
                 tmp = True
             else:
                 tmp = False
-            for opt in opts:
-                if(opt["option"] == self.onoff[i]):
-                    opt["content"] = tmp
+            opts[self.onoff[i]]["content"] = tmp
 
         for i in range(len(self.numeric)):
-            for opt in opts:
-                if(opt["option"] == self.numeric[i]):
-                    opt["content"] = self.numericResult[i].value
+            opts[self.numeric[i]]["content"] = self.numericResult[i].value
 
         self.parentApp.setNextForm('MAIN')
 
@@ -79,17 +76,18 @@ class VimXApp(npyscreen.NPSAppManaged):
         fVimrc = open( vimrcPath, "r")
         userOpts = vimrcPaser(fVimrc, 'set')
         self.displayDict = dict()
-        for opt in self.opts:
-            result = searchInVimrc(opt["option"], userOpts, "option")
+        for key in self.opts:
+            opt = self.opts[key]
+            result = searchInVimrc(key, userOpts, "option")
             if result:
                 opt["content"] = result["content"]
             else:
                 opt["content"] = opt["default"]
             cat = opt["category"]
             if cat in self.displayDict:
-                self.displayDict[cat].append(opt)
+                self.displayDict[cat][key] = opt
             else:
-                self.displayDict[cat] = [opt]
+                self.displayDict[cat] = {key: opt}
 
 if __name__ == '__main__':
     V = VimXApp()
