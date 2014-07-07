@@ -33,12 +33,12 @@ def concatFrom(inList, start):
   return string
 
 # --------------------------------------------
-# Vimrc_paser
-# Usage: something = vimrcPaser(file, option)
+# Vimrc_parser
+# Usage: something = vimrcparser(file, option)
 # Input: vimrc file, option
 # Output: setting dict
 # --------------------------------------------
-def vimrcPaser (fVimrc, myfilter):
+def vimrcParser (fVimrc, myfilter):
   configs = settingFilter(fVimrc)
   returnDict = dict()
   for config in configs:
@@ -88,7 +88,7 @@ def vimrcPaser (fVimrc, myfilter):
 # Example
 #vimrcPath = os.path.expanduser("~/.vimrc2")
 #fVimrc = open( vimrcPath, "r")
-#set_Formats = vimrcPaser(fVimrc, 'set')
+#set_Formats = vimrcParser(fVimrc, 'set')
 #for set_Format in set_Formats:
   #print (set_Format)
   #print set_Formats[set_Format]

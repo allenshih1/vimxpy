@@ -5,7 +5,7 @@ import curses
 import json
 import os
 import re
-from paser.paser import vimrcPaser
+from parser.parser import vimrcParser
 
 class OptForm(npyscreen.ActionForm):
     def create(self):
@@ -148,7 +148,7 @@ class VimXApp(npyscreen.NPSAppManaged):
 
     def categorizeOpt(self):
         self.oriVimrc = open( self.vimrcPath, "r")
-        userOpts = vimrcPaser(self.oriVimrc, 'set')
+        userOpts = vimrcParser(self.oriVimrc, 'set')
         self.displayDict = dict()
         for key in self.opts:
             opt = self.opts[key]
