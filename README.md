@@ -1,7 +1,4 @@
 ####Dependence
-1. python3
-2. [pythondialog](http://pythondialog.sourceforge.net/)
+1. python
+2. npyscreen
 3. vim
-
-####Caution
-Remember to back up your vimrc.
